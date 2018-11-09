@@ -19,6 +19,7 @@ from __future__ import print_function
 import nibabel as nib
 import numpy as np
 from optparse import OptionParser
+import sys
 
 parser = OptionParser()
 parser.add_option('-e', '--echo', action='store_true', default=False, dest='multi_echo',
@@ -45,13 +46,13 @@ parser.add_option('-v', '--verbose', action='store_true', default=False, dest='v
 
 verboseprint = print if options.verbose else lambda *a, **k: None
 
-fname = './test_data/image_type_mr.PAR'
-# fname = './test_data/diffusion.PAR'
-# fname = './test_data/asl.PAR'
-# fname = './test_data/multi_echo.PAR'
-# fname = './test_data/dynamic.PAR'
-# fname = './test_data/angio.PAR'
-in_name = fname
+# in_name = './test_data/image_type_mr.PAR'
+# in_name = './test_data/diffusion.PAR'
+# in_name = './test_data/asl.PAR'
+# in_name = './test_data/multi_echo.PAR'
+# in_name = './test_data/dynamic.PAR'
+# in_name = './test_data/angio.PAR'
+in_name = sys.argv[1]
 
 if options.pixel_value:
     img = nib.load(in_name, strict_sort=True, permit_truncated=True)
