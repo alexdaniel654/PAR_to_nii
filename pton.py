@@ -45,12 +45,12 @@ parser.add_option('-v', '--verbose', action='store_true', default=False, dest='v
 
 verboseprint = print if options.verbose else lambda *a, **k: None
 
-# fname = 'D:\\ppxad2\\ownCloud\\University\\Renal Imaging\\Nephrectomy\\Data\\20180117\\7T\\PARREC\\Neph_6week_7T_WIP_T1_TI0900_SENSE_19_1.PAR' #Mag, Phase, Real, Imag
-# fname = 'D:\\ppxad2\\ownCloud\\University\\Renal Imaging\\Nephrectomy\\Data\\20180925\\PARREC\\Neph_DTI_Brain_01_Neph_DTI_Brain_opt_128_L_2_1.PAR' #Diffusion
-# fname = 'D:\\ppxad2\\ownCloud\\University\\Renal Imaging\\TRUST\\Data\\20181009\\TRUST_O2_02\\PARREC\\TRUST_Liver_O2_Challenge_02_WIP_SOURCE_-_TRUST_9_2.PAR' #ASL
-# fname = 'D:\\ppxad2\\ownCloud\\University\\Renal Imaging\\TRUST\\Data\\20181009\\TRUST_O2_02\\PARREC\\TRUST_Liver_O2_Challenge_02_WIP_T2star_Map_8_1.PAR' #Multi-echo
-fname = 'D:\\ppxad2\\ownCloud\\University\\Renal Imaging\\TRUST\\Data\\20181009\\TRUST_O2_02\\PARREC\\TRUST_Liver_O2_Challenge_02_WIP_T1map_Ascend_5_1.PAR' #Multi-inversion
-# fname = 'D:\\ppxad2\\ownCloud\\University\\Renal Imaging\\TRUST\\Data\\20181009\\TRUST_O2_02\\PARREC\\TRUST_Liver_O2_Challenge_02_WIP_Portal_Vein_PCA_16_1.PAR' #PCA
+fname = './test_data/image_type_mr.PAR'
+# fname = './test_data/diffusion.PAR'
+# fname = './test_data/asl.PAR'
+# fname = './test_data/multi_echo.PAR'
+# fname = './test_data/dynamic.PAR'
+# fname = './test_data/angio.PAR'
 in_name = fname
 
 if options.pixel_value:
@@ -142,7 +142,7 @@ if 'dynamic scan number' in sort:
         scan_type['dynamic'] = 0
         sort['dynamic scan number'] = np.zeros(vols)
 else:
-    scan_type['dynamic'] = False
+    scan_type['dynamic'] = 0
     sort['dynamic scan number'] = np.zeros(vols)
     
     

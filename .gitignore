@@ -100,3 +100,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+#Raw MRI data
+*.nii
+*.nii.gz
+*.bval
+*.bvec
