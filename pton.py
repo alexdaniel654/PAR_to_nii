@@ -21,6 +21,7 @@ import numpy as np
 from optparse import OptionParser
 import sys
 
+# Pars options
 parser = OptionParser()
 parser.add_option('-e', '--echo', action='store_true', default=False, dest='multi_echo',
                   help='Save each echo as a different file')
@@ -46,6 +47,7 @@ parser.add_option('-v', '--verbose', action='store_true', default=False, dest='v
 
 verboseprint = print if options.verbose else lambda *a, **k: None
 
+# Read in file name (useful test data files are left commented for debugging in the future.
 # in_name = './test_data/image_type_mr.PAR'
 # in_name = './test_data/diffusion.PAR'
 # in_name = './test_data/asl.PAR'
@@ -54,6 +56,7 @@ verboseprint = print if options.verbose else lambda *a, **k: None
 # in_name = './test_data/angio.PAR'
 in_name = sys.argv[1]
 
+# Load the image (with appropriate scaling)
 if options.pixel_value:
     img = nib.load(in_name, strict_sort=True, permit_truncated=True)
     verboseprint('Importing with no data scaling')
@@ -70,6 +73,7 @@ sort = hdr.get_volume_labels()
 
 scan_type = {}
 
+# Establish how many output files there are going to end up being
 if 'echo number' in sort:
     if options.multi_echo:
         scan_type['echos'] = np.unique(sort['echo number'])
@@ -135,7 +139,7 @@ else:
     scan_type['dynamic'] = 0
     sort['dynamic scan number'] = np.zeros(vols)
     
-    
+# Load the image data
 data = img.get_data()
 
 for echo in np.nditer(scan_type['echos']):
@@ -145,6 +149,7 @@ for echo in np.nditer(scan_type['echos']):
                 for label in np.nditer(scan_type['labels']):
                     for type_mr in np.nditer(scan_type['types']):
                         for dynamic in np.nditer(scan_type['dynamic']):
+                            # Filter the data to only be there specific volume(s) we want to save
                             sub_data = data[:, :, :, np.logical_and.reduce((sort['echo number'] == echo,
                                                                             sort['cardiac phase number'] == phase,
                                                                             sort['diffusion b value number'] == bval,
@@ -152,31 +157,35 @@ for echo in np.nditer(scan_type['echos']):
                                                                             sort['label type'] == label,
                                                                             sort['image_type_mr'] == type_mr,
                                                                             sort['dynamic scan number'] == dynamic))]
-                            out_name = in_name[:-4]
-                            if options.multi_echo:
-                                out_name += '_echo_' + str(echo)
-                            if options.multi_phase:
-                                out_name += '_phase_' + str(phase)
-                            if options.diffusion:
-                                out_name += '_bval_'+str(bval)+'_bvec_'+str(bvec)
-                            if options.label:
-                                out_name += '_label_'+str(label)
-                            if options.dynamic:
-                                out_name += '_dynamic_'+str(dynamic)
-                            if options.multi_type:
-                                if type_mr == -1:
-                                    out_name += '_calculated'
-                                elif type_mr == 0:
-                                    out_name += '_mag'
-                                elif type_mr == 1:
-                                    out_name += '_real'
-                                elif type_mr == 2:
-                                    out_name += '_imag'
-                                elif type_mr == 3:
-                                    out_name += '_phase'
-                            out_name += '.nii.gz'
+
                             if sub_data.shape[3] != 0:
+                                # Make an output file name
+                                out_name = in_name[:-4]
+                                if options.multi_echo:
+                                    out_name += '_echo_' + str(echo)
+                                if options.multi_phase:
+                                    out_name += '_phase_' + str(phase)
+                                if options.diffusion:
+                                    out_name += '_bval_' + str(bval) + '_bvec_' + str(bvec)
+                                if options.label:
+                                    out_name += '_label_' + str(label)
+                                if options.dynamic:
+                                    out_name += '_dynamic_' + str(dynamic)
+                                if options.multi_type:
+                                    if type_mr == -1:
+                                        out_name += '_calculated'
+                                    elif type_mr == 0:
+                                        out_name += '_mag'
+                                    elif type_mr == 1:
+                                        out_name += '_real'
+                                    elif type_mr == 2:
+                                        out_name += '_imag'
+                                    elif type_mr == 3:
+                                        out_name += '_phase'
+                                out_name += '.nii.gz'
                                 print(out_name)
+
+                                # Print other useful information if verbose mode is on
                                 verboseprint('Volume shape = ' + str(sub_data.shape[0])
                                              + 'x' + str(sub_data.shape[1])
                                              + 'x' + str(sub_data.shape[2])
@@ -188,9 +197,12 @@ for echo in np.nditer(scan_type['echos']):
                                 verboseprint('label = ' + str(label))
                                 verboseprint('dynamic = ' + str(dynamic))
                                 verboseprint('type = ' + str(type_mr) + '\n')
+
+                                # Make the nifti image object and save it
                                 img_out = nib.Nifti1Image(sub_data, img.affine)
                                 nib.save(img_out, out_name)
 
+# Save the gradient and b-value information as text files
 if options.gradient:
     # TODO add error if no bvals/bvecs present
     bvals, bvecs = hdr.get_bvals_bvecs()
