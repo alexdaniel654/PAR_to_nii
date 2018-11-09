@@ -68,15 +68,9 @@ hdr = img.header
 vols = img.shape[3]
 sort = hdr.get_volume_labels()
 
-scan_type = {'multi_echo': False,
-             'multi_phase': False,
-             'diffusion': False,
-             'label': False,
-             'multi_type': False,
-             'dynamic': False}
+scan_type = {}
 
 if 'echo number' in sort:
-    scan_type['multi_echo'] = True
     if options.multi_echo:
         scan_type['echos'] = np.unique(sort['echo number'])
     else:
@@ -87,7 +81,6 @@ else:
     sort['echo number'] = np.zeros(vols)
 
 if 'cardiac phase number' in sort:
-    scan_type['multi_phase'] = True
     if options.multi_phase:
         scan_type['phases'] = np.unique(sort['cardiac phase number'])
     else:
@@ -98,7 +91,6 @@ else:
     sort['cardiac phase number'] = np.zeros(vols)
 
 if 'gradient orientation number' in sort:
-    scan_type['diffusion'] = True
     if options.diffusion:
         scan_type['bvecs'] = np.unique(sort['gradient orientation number'])
         scan_type['bvals'] = np.unique(sort['diffusion b value number'])
@@ -114,7 +106,6 @@ else:
     sort['diffusion b value number'] = np.zeros(vols)
 
 if 'label type' in sort:
-    scan_type['label'] = True
     if options.label:
         scan_type['labels'] = np.unique(sort['label type'])
     else:
@@ -125,7 +116,6 @@ else:
     sort['label type'] = np.zeros(vols)
 
 if 'image_type_mr' in sort:
-    scan_type['multi_type'] = True
     if options.multi_type:
         scan_type['types'] = np.unique(sort['image_type_mr'])
     else:
@@ -136,7 +126,6 @@ else:
     sort['image_type_mr'] = np.zeros(vols)
 
 if 'dynamic scan number' in sort:
-    scan_type['dynamic'] = True
     if options.dynamic:
         scan_type['dynamic'] = np.unique(sort['dynamic scan number'])
     else:
