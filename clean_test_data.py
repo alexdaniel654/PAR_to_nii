@@ -15,4 +15,3 @@ files = glob.glob('./test_data/*.nii.gz')
 for file in files:
     print('Removing ' + file)
     os.remove(file)
-    

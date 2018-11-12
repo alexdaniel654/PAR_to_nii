@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created: 08/11/2018
-Last update: 09/11/2018
+Last update: 12/11/2018
 Alex Daniel, Sir Peter Mansfield Imaging Centre, The University of Nottingham, 2018.
 
 pton (p-to-n or par-to-nifti) converts Philips PAR/REC format data into compressed nifti data. This tool is designed as
