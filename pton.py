@@ -16,10 +16,7 @@ For a more comprehensive list of features/options run python pton.py -h
 """
 
 from __future__ import print_function
-import nibabel as nib
-import numpy as np
 from optparse import OptionParser
-import sys
 
 # Pars options
 parser = OptionParser()
@@ -44,6 +41,10 @@ parser.add_option('-D', '--display_value', action='store_true', default=False, d
 parser.add_option('-v', '--verbose', action='store_true', default=False, dest='verbose',
                   help='Display additional information to command-line')
 (options, args) = parser.parse_args()
+
+import nibabel as nib
+import numpy as np
+import sys
 
 verboseprint = print if options.verbose else lambda *a, **k: None
 
