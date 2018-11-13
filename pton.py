@@ -48,13 +48,6 @@ import sys
 
 verboseprint = print if options.verbose else lambda *a, **k: None
 
-# Read in file name (useful test data files are left commented for debugging in the future.
-# in_name = './test_data/image_type_mr.PAR'
-# in_name = './test_data/diffusion.PAR'
-# in_name = './test_data/asl.PAR'
-# in_name = './test_data/multi_echo.PAR'
-# in_name = './test_data/dynamic.PAR'
-# in_name = './test_data/angio.PAR'
 in_name = sys.argv[1]
 
 # Load the image (with appropriate scaling)
