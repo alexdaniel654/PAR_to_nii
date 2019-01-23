@@ -62,7 +62,10 @@ else:
     verboseprint('Importing with floating point scaling')
 
 hdr = img.header
-vols = img.shape[3]
+try:
+    vols = img.shape[3]
+except IndexError:
+    vols = 1
 sort = hdr.get_volume_labels()
 
 scan_type = {}
@@ -135,6 +138,9 @@ else:
     
 # Load the image data
 data = img.get_data()
+
+if len(data.shape) == 3:
+    data = np.expand_dims(data, 3)
 
 for echo in np.nditer(scan_type['echos']):
     for phase in np.nditer(scan_type['phases']):
