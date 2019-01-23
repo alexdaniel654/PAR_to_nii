@@ -184,5 +184,16 @@ class TestScaling(unittest.TestCase):
         [os.remove(f) for f in files]
 
 
+class TestSimple(unittest.TestCase):
+
+    def test_simple(self):
+        run_pton('simple.PAR')
+        self.assertTrue(same_data('simple.nii.gz', 'gold_simple.nii.gz'))
+
+    def tearDown(self):
+        files = glob.glob('.\\test_data\\simple*.nii.gz')
+        [os.remove(f) for f in files]
+
+
 if __name__ == '__main__':
     unittest.main()
