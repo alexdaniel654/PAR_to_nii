@@ -186,9 +186,13 @@ class TestScaling(unittest.TestCase):
 
 class TestSimple(unittest.TestCase):
 
-    def test_simple(self):
-        run_pton('simple.PAR')
-        self.assertTrue(same_data('simple.nii.gz', 'gold_simple.nii.gz'))
+    def test_simple_3d(self):
+        run_pton('simple_3D.PAR')
+        self.assertTrue(same_data('simple_3D.nii.gz', 'gold_simple_3D.nii.gz'))
+
+    def test_simple_2d(self):
+        run_pton('simple_2D.PAR')
+        self.assertTrue(same_data('simple_2D.nii.gz', 'gold_simple_2D.nii.gz'))
 
     def tearDown(self):
         files = glob.glob('.\\test_data\\simple*.nii.gz')
