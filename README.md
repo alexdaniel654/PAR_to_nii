@@ -18,7 +18,7 @@ The gradient information from a DWI/DTI scan is saved in the PAR file. pton can 
 
 To use pton open command prompt and use the syntax below. Any number of volume separation flags can be used to subdivide the file as much as you want i.e. for the example below the magnitude and phase of each echo time are saved in a different nifti file.
 
-``.\pton.exe data.PAR -epv``
+``.\pton.exe data.PAR -etv``
 
 ### Full list of flags available
 
