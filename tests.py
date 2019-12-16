@@ -16,15 +16,15 @@ import os
 
 
 def run_pton(in_file, flags=''):
-    cmd = 'python pton.py .\\test_data\\' + in_file + ' ' + flags
+    cmd = 'python pton.py ./test_data/' + in_file + ' ' + flags
     process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE)
     process.communicate()
 
 
 def same_data(test_file, gold_file):
-    test_img = nib.load('.\\test_data\\' + test_file)
+    test_img = nib.load('./test_data/' + test_file)
     test_data = test_img.get_data()
-    gold_img = nib.load('.\\test_data\\gold_data\\' + gold_file)
+    gold_img = nib.load('./test_data/gold_data/' + gold_file)
     gold_data = gold_img.get_data()
     return np.allclose(test_data, gold_data)
 
@@ -43,7 +43,7 @@ class TestType(unittest.TestCase):
         self.assertTrue(same_data('image_type_mr_phase.nii.gz', 'gold_image_type_mr_phase.nii.gz'))
 
     def tearDown(self):
-        files = glob.glob('.\\test_data\\image_type_mr*.nii.gz')
+        files = glob.glob('./test_data/image_type_mr*.nii.gz')
         [os.remove(f) for f in files]
 
 
@@ -77,7 +77,7 @@ class TestAngio(unittest.TestCase):
         self.assertTrue(same_data('angio_phase_15_mag.nii.gz', 'gold_angio_phase_15_mag.nii.gz'))
 
     def tearDown(self):
-        files = glob.glob('.\\test_data\\angio*.nii.gz')
+        files = glob.glob('./test_data/angio*.nii.gz')
         [os.remove(f) for f in files]
 
 
@@ -93,7 +93,7 @@ class TestASL(unittest.TestCase):
         self.assertTrue(same_data('asl_label_2.nii.gz', 'gold_asl_label_2.nii.gz'))
 
     def tearDown(self):
-        files = glob.glob('.\\test_data\\asl*.nii.gz')
+        files = glob.glob('./test_data/asl*.nii.gz')
         [os.remove(f) for f in files]
 
 
@@ -112,17 +112,17 @@ class TestDiffusion(unittest.TestCase):
 
     def test_gtab(self):
         run_pton('diffusion.PAR', '-g')
-        self.assertTrue(np.allclose(np.loadtxt('.\\test_data\\diffusion.bval'),
-                                    np.loadtxt('.\\test_data\\gold_data\\gold_diffusion.bval')))
-        self.assertTrue(np.allclose(np.loadtxt('.\\test_data\\diffusion.bvec'),
-                                    np.loadtxt('.\\test_data\\gold_data\\gold_diffusion.bvec')))
+        self.assertTrue(np.allclose(np.loadtxt('./test_data/diffusion.bval'),
+                                    np.loadtxt('./test_data/gold_data/gold_diffusion.bval')))
+        self.assertTrue(np.allclose(np.loadtxt('./test_data/diffusion.bvec'),
+                                    np.loadtxt('./test_data/gold_data/gold_diffusion.bvec')))
 
     def tearDown(self):
-        files = glob.glob('.\\test_data\\diffusion*.nii.gz')
+        files = glob.glob('./test_data/diffusion*.nii.gz')
         [os.remove(f) for f in files]
-        files = glob.glob('.\\test_data\\diffusion*.bval')
+        files = glob.glob('./test_data/diffusion*.bval')
         [os.remove(f) for f in files]
-        files = glob.glob('.\\test_data\\diffusion*.bvec')
+        files = glob.glob('./test_data/diffusion*.bvec')
         [os.remove(f) for f in files]
 
 
@@ -139,7 +139,7 @@ class TestDynamic(unittest.TestCase):
         self.assertTrue(same_data('dynamic_dynamic_10.nii.gz', 'gold_dynamic_dynamic_10.nii.gz'))
 
     def tearDown(self):
-        files = glob.glob('.\\test_data\\dynamic*.nii.gz')
+        files = glob.glob('./test_data/dynamic*.nii.gz')
         [os.remove(f) for f in files]
 
 
@@ -161,7 +161,7 @@ class TestEcho(unittest.TestCase):
         self.assertTrue(same_data('multi_echo_calculated.nii.gz', 'gold_multi_echo_calculated.nii.gz'))
 
     def tearDown(self):
-        files = glob.glob('.\\test_data\\multi_echo*.nii.gz')
+        files = glob.glob('./test_data/multi_echo*.nii.gz')
         [os.remove(f) for f in files]
 
 
@@ -180,7 +180,7 @@ class TestScaling(unittest.TestCase):
         self.assertTrue(same_data('image_type_mr.nii.gz', 'gold_image_type_mr_no_scaling.nii.gz'))
 
     def tearDown(self):
-        files = glob.glob('.\\test_data\\image_type_mr*.nii.gz')
+        files = glob.glob('./test_data/image_type_mr*.nii.gz')
         [os.remove(f) for f in files]
 
 
@@ -195,7 +195,7 @@ class TestSimple(unittest.TestCase):
         self.assertTrue(same_data('simple_2D.nii.gz', 'gold_simple_2D.nii.gz'))
 
     def tearDown(self):
-        files = glob.glob('.\\test_data\\simple*.nii.gz')
+        files = glob.glob('./test_data/simple*.nii.gz')
         [os.remove(f) for f in files]
 
 
