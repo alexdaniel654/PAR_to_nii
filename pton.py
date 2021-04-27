@@ -137,7 +137,7 @@ else:
     sort['dynamic scan number'] = np.zeros(vols)
     
 # Load the image data
-data = img.get_data()
+data = img.get_fdata()
 
 if len(data.shape) == 3:
     data = np.expand_dims(data, 3)
