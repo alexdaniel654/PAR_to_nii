@@ -23,9 +23,9 @@ def run_pton(in_file, flags=''):
 
 def same_data(test_file, gold_file):
     test_img = nib.load('./test_data/' + test_file)
-    test_data = test_img.get_data()
+    test_data = test_img.get_fdata()
     gold_img = nib.load('./test_data/gold_data/' + gold_file)
-    gold_data = gold_img.get_data()
+    gold_data = gold_img.get_fdata()
     return np.allclose(test_data, gold_data)
 
 

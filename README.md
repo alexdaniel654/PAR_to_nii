@@ -1,5 +1,5 @@
 # PAR to nii
-[![Build Status](https://travis-ci.com/alexdaniel654/PAR_to_nii.svg?branch=master)](https://travis-ci.com/alexdaniel654/PAR_to_nii)
+[![Lint and Test](https://github.com/alexdaniel654/PAR_to_nii/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/alexdaniel654/PAR_to_nii/actions/workflows/lint_and_test.yml)
 [![codecov](https://codecov.io/gh/alexdaniel654/PAR_to_nii/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdaniel654/PAR_to_nii)
 
 pton (p-to-n or par-to-nifti) is a command line utility that converts Philips PAR/REC format data into compressed nifti data. This tool is designed as an alternative to the popular ptoa.exe which outputs the now outdated analyze format.
